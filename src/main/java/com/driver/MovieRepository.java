@@ -47,10 +47,12 @@ public class MovieRepository {
     }
 
     public Movie getMovieByName(String name){
+
         return movieMap.get(name);
     }
 
     public Director getDirectorByName(String name){
+
         return directorMap.get(name);
     }
 

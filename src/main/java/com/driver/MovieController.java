@@ -27,12 +27,12 @@ public class MovieController {
 
 
     @PutMapping("/movies/add-movie-director-pair")
-    public ResponseEntity<String > addMovieDirectorPair(@RequestParam String directorName, @RequestParam String movieName){
+    public ResponseEntity<String > addMovieDirectorPair(@RequestParam("q1") String directorName, @RequestParam("q2") String movieName) {
         String response = movieService.addMovieDirectorPair(directorName, movieName);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @GetMapping("movies/get-movie-by-name/{name}")
+    @GetMapping("/movies/get-movie-by-name/{name}")
     public ResponseEntity<Movie> getMovieByName(@PathVariable ("name") String name){
         Movie movie = movieService.getMovieByName(name);
             return new ResponseEntity<>(movie, HttpStatus.CREATED);
