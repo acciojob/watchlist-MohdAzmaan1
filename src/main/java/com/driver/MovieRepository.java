@@ -89,68 +89,107 @@ public class MovieRepository {
 //        return list;
 //    }
 
-    public Movie getMovieByName(String movieName) {
-        if(movieMap.containsKey(movieName)) {
+    public Movie getMovieByName(String movieName){
+        if(movieMap.containsKey(movieName)){
             return movieMap.get(movieName);
         }
         return null ;
     }
 
 
-    public Director getDirectorByName(String directorName) {
-        if(directorMap.containsKey(directorName)) {
+    public Director getDirectorByName(String directorName){
+        if(directorMap.containsKey(directorName)){
             return directorMap.get(directorName);
         }
         return null;
     }
 
 
-    public List<String> getMoviesByDirectorName(String directorName) {
-        if(pairMap.containsKey(directorName)) {
+    public List<String> getMoviesByDirectorName(String directorName){
+        if(pairMap.containsKey(directorName)){
             return pairMap.get(directorName);
         }
         return null;
     }
 
-    public List<String> findAllMovies() {
+    public List<String> findAllMovies(){
         List<String> ans=new ArrayList<>();
-        for(String m : movieMap.keySet()) {
+        for(String m : movieMap.keySet()){
             ans.add(m);
         }
         return ans;
     }
 
 
-    public String deleteDirectorByName(String directorName) {
-        if(directorMap.containsKey(directorName)){
-            if(pairMap.containsKey(directorName)){
-                List<String> list = pairMap.get(directorName);
-                for(String s : list){
-                    list.remove(s);
-                }
-                pairMap.remove(directorName);
-            }
-            directorMap.remove(directorName);
-            return "Delete is Successful";
+//    public String deleteDirectorByName(String directorName) {
+//        if(directorMap.containsKey(directorName)){
+//            if(pairMap.containsKey(directorName)){
+//                List<String> list = pairMap.get(directorName);
+//                for(String s : list){
+//                    list.remove(s);
+//                }
+//                pairMap.remove(directorName);
+//            }
+//            directorMap.remove(directorName);
+//            return "Delete is Successful";
+//        }
+//        return null;
+//    }
+//
+//    public String deleteAllDirectors() {
+//        for(String s :pairMap.keySet()) {
+//            List<String>list = new ArrayList<>();
+//            list = pairMap.get(s);
+//            for(String movie: list) {
+//                if(movieMap.containsKey(movie)) {
+//                    movieMap.remove(movie);
+//                }
+//            }
+//            pairMap.remove(s);
+//        }
+//        for(String s:directorMap.keySet()) {
+//            directorMap.remove(s);
+//        }
+//        return "All directors are removed successfully";
+//    }
+
+
+    public String deleteDirectorByName(String directorName){
+        List<String> list =new ArrayList<>();
+        if(pairMap.containsKey(directorName)){
+            list=pairMap.get(directorName);
         }
-        return null;
+        for(String movie:list) {
+            if(movieMap.containsKey(movie)){
+                movieMap.remove(movie);
+            }
+        }
+        pairMap.remove(directorName);
+        if(directorMap.containsKey(directorName)){
+            directorMap.remove(directorName);
+        }
+        return "Director and its movies removed successfully";
     }
 
-    public String deleteAllDirectors() {
-        for(String s :pairMap.keySet()) {
-            List<String>list = new ArrayList<>();
-            list = pairMap.get(s);
-            for(String movie: list) {
-                if(movieMap.containsKey(movie)) {
+
+    public String deleteAllDirectors(){
+
+        for(String s:pairMap.keySet()){
+            List<String> ans = new ArrayList<>();
+            ans = pairMap.get(s);
+
+            for(String movie:ans) {
+                if(movieMap.containsKey(movie)){
                     movieMap.remove(movie);
                 }
             }
             pairMap.remove(s);
         }
-        for(String s:directorMap.keySet()) {
+
+        for(String s:directorMap.keySet()){
             directorMap.remove(s);
         }
-        return "All directors are removed successfully";
+        return "All directors and all of their movies removed successfully";
     }
 }
 //package com.driver;
