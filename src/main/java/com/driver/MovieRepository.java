@@ -28,15 +28,22 @@ public class MovieRepository {
 
     public String addMovieDirectorPair(String directorName, String movieName){
         if(movieMap.containsKey(movieName) && directorMap.containsKey(directorName)) {
-            if(pairMap.containsKey(directorName)) {
-                pairMap.get(directorName).add(movieName);
-            }else{
-                ArrayList<String> list = new ArrayList<>();
+            List<String> list = new ArrayList<>();
+            if(pairMap.containsKey(directorName)){
+                if(pairMap.get(directorName).contains(movieName)){
+                    return "Pair already exist";
+                }
+                list = pairMap.get(directorName);
                 list.add(movieName);
                 pairMap.put(directorName,list);
             }
+            else{
+                list.add(movieName);
+                pairMap.put(directorName,list);
+            }
+            return "Pair added Successfully";
         }
-        return "Director-Movie pair is successfully added";
+        return "Not Found";
     }
 
     public Movie getMovieByName(String name){
